@@ -1,10 +1,8 @@
-package br.com.nn.fin_analysis;
+package br.com.nn.fin_analysis.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.stream.Stream;
+import java.util.Scanner;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +25,11 @@ public class TransacaoController {
 		System.out.println("Tamanho: " + file.getSize()/1E6 + "MB"); 
 		try {
 			InputStream inputStream = file.getInputStream();
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			Stream<String> lines = bufferedReader.lines();
-			lines.forEach(System.out::println);
+			Scanner scanner = new Scanner(inputStream);
+			while(scanner.hasNextLine()) {
+				System.out.println(scanner.nextLine());
+			}
+			scanner.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
