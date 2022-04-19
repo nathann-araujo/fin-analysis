@@ -3,6 +3,7 @@ package br.com.nn.fin_analysis.service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,10 @@ public class TransacaoService {
 					+ " as transações para essa data já foram importadas!");
 		}
 		return diaTransacao;
+	}
+	
+	public List<Importacao> getImportacoes() {
+		return this.importacoesRepository.findAll();
 	}
 
 }

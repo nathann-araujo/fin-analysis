@@ -27,6 +27,7 @@ public class TransacaoController {
 	@GetMapping
 	public ModelAndView getFormulario() {
 		ModelAndView mv = new ModelAndView("importar-transacoes");
+		mv.addObject("listaImportacoes", transacaoService.getImportacoes());
 		return mv;
 	}
 	@PostMapping

@@ -31,6 +31,24 @@
 		</form>
 	</div>
 	
+	<div th:if="${!listaImportacoes.empty}" class="container mt-5">
+	<h2 class="text-center">IMPORTAÇÕES REALIZADAS</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">DATA TRANSAÇÕES</th>
+					<th scope="col">DATA IMPORTAÇÃO</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="importacao:${listaImportacoes}">
+					<td th:text="${#temporals.format(importacao.dataTransacao,'dd/MM/yyyy')}"></td>
+					<td th:text="${#temporals.format(importacao.dataImportacao,'dd/MM/yyyy-HH:mm:ss')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
 	<script th:src="@{/webjars/popper.js/2.9.3/umd/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
 </body>
