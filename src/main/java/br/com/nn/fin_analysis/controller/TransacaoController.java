@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,29 +12,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import br.com.nn.fin_analysis.exception.CsvValidationException;
+import br.com.nn.fin_analysis.service.TransacaoService;
 
 @Controller
 @RequestMapping("/")
 public class TransacaoController {
+	
+	@Autowired
+	TransacaoService transacaoService;
+	
 	@GetMapping
 	public ModelAndView getFormulario() {
-		return new ModelAndView("importar-transacoes");
+		ModelAndView mv = new ModelAndView("importar-transacoes");
+		return mv;
 	}
 	@PostMapping
-	public ModelAndView postTransacao(@RequestParam("file") MultipartFile file) {
+	public ModelAndView postTransacao(@RequestParam("file") MultipartFile file,
+			RedirectAttributes redirectAttributes) {
+		if (file.isEmpty()) {
+			redirectAttributes.addFlashAttribute("message", "O arquivo importado está vazio! Use um arquivo válido!");
+			return new ModelAndView("redirect:/");
+		}
 		System.out.println("Nome: " + file.getOriginalFilename());
-		System.out.println("Tamanho: " + file.getSize()/1E6 + "MB"); 
+		System.out.println("Tamanho: " + file.getSize()/1E6 + "MB");
 		try {
 			InputStream inputStream = file.getInputStream();
 			Scanner scanner = new Scanner(inputStream);
-			while(scanner.hasNextLine()) {
-				System.out.println(scanner.nextLine());
-			}
+			this.transacaoService.registrar(scanner);
 			scanner.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException | CsvValidationException e) {
+			if(e instanceof CsvValidationException) {
+				redirectAttributes.addFlashAttribute("message",e.getMessage());
+				return new ModelAndView("redirect:/");
+			}
 		}
-		return new ModelAndView("importar-transacoes");
+		
+		redirectAttributes.addFlashAttribute("message", "Arquivo adicionado com sucesso!");
+		return new ModelAndView("redirect:/");
 	}
 }
