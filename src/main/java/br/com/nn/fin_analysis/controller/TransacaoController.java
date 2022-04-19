@@ -18,7 +18,7 @@ import br.com.nn.fin_analysis.exception.CsvValidationException;
 import br.com.nn.fin_analysis.service.TransacaoService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/transacoes")
 public class TransacaoController {
 	
 	@Autowired
@@ -35,7 +35,7 @@ public class TransacaoController {
 			RedirectAttributes redirectAttributes) {
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "O arquivo importado está vazio! Use um arquivo válido!");
-			return new ModelAndView("redirect:/");
+			return new ModelAndView("redirect:/transacoes");
 		}
 		System.out.println("Nome: " + file.getOriginalFilename());
 		System.out.println("Tamanho: " + file.getSize()/1E6 + "MB");
@@ -47,11 +47,11 @@ public class TransacaoController {
 		} catch (IOException | CsvValidationException e) {
 			if(e instanceof CsvValidationException) {
 				redirectAttributes.addFlashAttribute("message",e.getMessage());
-				return new ModelAndView("redirect:/");
+				return new ModelAndView("redirect:/transacoes");
 			}
 		}
 		
 		redirectAttributes.addFlashAttribute("message", "Arquivo adicionado com sucesso!");
-		return new ModelAndView("redirect:/");
+		return new ModelAndView("redirect:/transacoes");
 	}
 }
