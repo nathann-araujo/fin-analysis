@@ -13,7 +13,7 @@ import javax.persistence.Id;
 public class Importacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(unique = true)
 	private LocalDate dataTransacao;
 	private LocalDateTime dataImportacao;
@@ -28,7 +28,7 @@ public class Importacao {
 	}
 
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(long id) {
