@@ -3,8 +3,11 @@ package br.com.nn.fin_analysis.service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,14 +27,18 @@ public class TransacaoService {
 	
 	@Autowired
 	TransacaoRepository transacaoRepository;
-
+	
+	@Transactional
 	public void registrar(Scanner scanner) {
+		List<Transacao> listaDeTransacoes = new ArrayList<>();
 		String primeiraTransacao = scanner.nextLine();
 		String[] detalhesPrimeiraTransacao = primeiraTransacao.split(",");
 		LocalDate diaDaTransacao = this.determinarDiaDaTransacao(detalhesPrimeiraTransacao);
 		boolean transacaoEhValida = this.validarTransacao(detalhesPrimeiraTransacao, diaDaTransacao);
 		if (transacaoEhValida) {
-			this.salvarTransacao(detalhesPrimeiraTransacao);
+			Transacao transacao = this.obterTransacao(detalhesPrimeiraTransacao);
+			listaDeTransacoes.add(transacao);
+			
 		} else {
 			throw new CsvValidationException("Transação Inválida!");
 		}
@@ -39,14 +46,16 @@ public class TransacaoService {
 		while(scanner.hasNextLine()) {
 			String[] detalhesTransacao = scanner.nextLine().replaceAll("(,\\s*,){1,}", ",").split(",");
 			if(this.validarTransacao(detalhesTransacao, diaDaTransacao)) {
-				this.salvarTransacao(detalhesTransacao);
+				Transacao transacao = this.obterTransacao(detalhesTransacao);
+				listaDeTransacoes.add(transacao);
 			}
 		}
 		Importacao importacao = new Importacao(diaDaTransacao, LocalDateTime.now());
+		transacaoRepository.saveAll(listaDeTransacoes);
 		importacoesRepository.save(importacao);
 	}
 	
-	private void salvarTransacao(String[] detalhesTransacao) {
+	private Transacao obterTransacao(String[] detalhesTransacao) {
 		Conta contaOrigem = new Conta(detalhesTransacao[0],detalhesTransacao[1],detalhesTransacao[2]);
 		Conta contaDestino = new Conta(detalhesTransacao[3],detalhesTransacao[4],detalhesTransacao[5]);
 		
@@ -54,7 +63,7 @@ public class TransacaoService {
 				contaDestino,
 				new BigDecimal(detalhesTransacao[6]),
 				LocalDateTime.parse(detalhesTransacao[7]));
-		transacaoRepository.save(transacao);
+		return transacao;
 	}
 	
 	private boolean validarTransacao(String[] detalhesTransacao, LocalDate diaDaTransacao) {
