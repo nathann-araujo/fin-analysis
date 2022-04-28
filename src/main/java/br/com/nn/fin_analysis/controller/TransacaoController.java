@@ -37,8 +37,6 @@ public class TransacaoController {
 			redirectAttributes.addFlashAttribute("message", "O arquivo importado está vazio! Use um arquivo válido!");
 			return new ModelAndView("redirect:/transacoes");
 		}
-		System.out.println("Nome: " + file.getOriginalFilename());
-		System.out.println("Tamanho: " + file.getSize()/1E6 + "MB");
 		try {
 			InputStream inputStream = file.getInputStream();
 			Scanner scanner = new Scanner(inputStream);
@@ -53,5 +51,5 @@ public class TransacaoController {
 		
 		redirectAttributes.addFlashAttribute("message", "Arquivo adicionado com sucesso!");
 		return new ModelAndView("redirect:/transacoes");
-	}
+	}	
 }
