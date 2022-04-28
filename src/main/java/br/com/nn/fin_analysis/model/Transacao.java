@@ -18,7 +18,7 @@ public class Transacao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Embedded
 	@AttributeOverrides({
 		  @AttributeOverride( name = "banco", column = @Column(name = "banco_origem")),
@@ -51,7 +51,7 @@ public class Transacao {
 	}
 
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

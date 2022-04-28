@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base::head(~{::title})">
+<title>Usuarios</title>
+</head>
+<body>
+<div class="container mt-5">
+	<h2 class="text-center">USUÁRIOS CADASTRADOS</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">NOME</th>
+					<th scope="col">EMAIL</th>
+					<th scope="col">OPÇÕES</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="usuario:${listaDeUsuarios}">
+					<td th:text="${usuario.id}"></td>
+					<td th:text="${usuario.nome}"></td>
+					<td th:text="${usuario.email}"></td>
+					<td>
+					<button class="btn btn-primary">Editar</button>
+					<button class="btn btn-danger" th:if="${usuario.email != username}">Remover</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div th:replace="base :: jsbootstrap"></div>
+</body>
+</html>

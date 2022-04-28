@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base::head(~{::title})">
+<title>Cadastrar</title>
+</head>
+<body>
+	<div class="container mt-3">
+		<h1 class="text-center">IMPORTAR TRANSAÇÕES</h1>
+		<form action="/signup" method="POST" th:object="${usuarioForm}">
+			<div class="form-floating mb-3">
+				<input th:field="*{nome}" th:errorclass="is-invalid"
+					id="floatingNome" type="text" name="nome" class="form-control"
+					placeholder="Nome"> <label for="floatingNome">Nome</label>
+				<p class="alert alert-danger" th:if="${#fields.hasErrors('nome')}"
+					th:errors="*{nome}">
+			</div>
+			<div class="form-floating mb-3">
+				<input th:field="*{email}" th:errorclass="is-invalid"
+					id="floatingEmail" type="email" name="email" class="form-control"
+					placeholder="example@email.com"> <label for="floatingEmail">
+					Email</label>
+				<p class="alert alert-danger" th:if="${#fields.hasErrors('email')}"
+					th:errors="*{email}">
+			</div>
+			<button class="btn btn-primary" type="submit">cadastrar</button>
+			<div th:if=${erros}>
+				<h1>erro</h1>
+			</div>
+		</form>
+
+	</div>
+	<div th:replace="base :: jsbootstrap"></div>
+</body>
+</html>
