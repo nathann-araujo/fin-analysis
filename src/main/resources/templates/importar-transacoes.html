@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Importar Transação</title>
-<link th:rel="stylesheet"
-	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
+<head th:replace="base::head(~{::title})">
+<title>Importar</title>
 </head>
 <body>
 
@@ -48,8 +45,6 @@
 			</tbody>
 		</table>
 	</div>
-	
-	<script th:src="@{/webjars/popper.js/2.9.3/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+	<div th:replace="base::jsbootstrap"></div>
 </body>
 </html>
