@@ -22,7 +22,10 @@
 					<td th:text="${usuario.email}"></td>
 					<td>
 					<button class="btn btn-primary">Editar</button>
-					<button class="btn btn-danger" th:if="${usuario.email != username}">Remover</button>
+					<form class="d-inline" th:if="${usuario.email != username}" th:action="@{/usuarios/deletar}" method="POST">
+						<input name="id" type="hidden" th:value="${usuario.id}">
+						<button class="btn btn-danger" type="submit">Remover</button>
+					</form>
 					</td>
 				</tr>
 			</tbody>

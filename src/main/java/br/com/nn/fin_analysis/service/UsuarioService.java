@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.nn.fin_analysis.config.security.authentication.DetalhesDoUsuarioImpl;
 import br.com.nn.fin_analysis.dto.UsuarioDto;
 import br.com.nn.fin_analysis.dto.UsuarioForm;
 import br.com.nn.fin_analysis.model.Usuario;
@@ -44,6 +45,19 @@ public class UsuarioService {
 	}
 	public List<UsuarioDto> getUsuarios() {
 		return usuarioRepository.findByIdNot(1L);
+		
+	}
+	public void deletarUsuario(Long id, DetalhesDoUsuarioImpl details) {
+		if (id.equals(1L)) {
+			System.out.println("NÃO DEVE DELETAR ADMIN");
+			return;
+		}
+		
+		if (!id.equals(details.getId())) {
+			usuarioRepository.deleteById(id);
+			return;
+		}
+		System.out.println("NÃO DEVE DELETAR A SI PRÓPRIO");
 		
 	}
 }

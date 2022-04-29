@@ -1,1 +1,1 @@
-MERGE INTO USUARIO values (1, TRUE,'admin@email.com.br', 'Admin', '$2a$10$CQtfY2ahOtQX8Ew89PyorOAWAdBhBjoegp/7AUrdjremiNHG87xfW');
+MERGE INTO usuarios values (1, TRUE,'admin@email.com.br', 'Admin', '$2a$10$CQtfY2ahOtQX8Ew89PyorOAWAdBhBjoegp/7AUrdjremiNHG87xfW');

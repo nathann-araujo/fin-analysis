@@ -9,8 +9,8 @@ import br.com.nn.fin_analysis.dto.UsuarioDto;
 import br.com.nn.fin_analysis.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
-
-	List<UsuarioDto> findByIdNot(Long id);
 	
 	Optional<Usuario> findByEmail(String email);
+
+	List<UsuarioDto> findByIdNot(Long id);
 }
