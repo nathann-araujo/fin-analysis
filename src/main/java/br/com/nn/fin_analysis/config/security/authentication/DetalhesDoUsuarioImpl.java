@@ -12,16 +12,24 @@ public class DetalhesDoUsuarioImpl implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
 	
+	private final Long id;
 	private final String username;
 	private final String password;
 	private final boolean enabled;
 	private final List<GrantedAuthority> rolesAndAuthorities;
 	
 	public DetalhesDoUsuarioImpl(Usuario usuario) {
-		username = usuario.getEmail();
-		password = usuario.getSenha();
-		enabled = usuario.isAtivo();
-		rolesAndAuthorities = List.of();
+		this.id = usuario.getId();
+		this.username = usuario.getEmail();
+		this.password = usuario.getSenha();
+		this.enabled = usuario.isAtivo();
+		this.rolesAndAuthorities = List.of();
+	}
+	
+	
+	
+	public Long getId() {
+		return id;
 	}
 	
 	@Override

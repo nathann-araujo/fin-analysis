@@ -5,9 +5,12 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Importacao {
@@ -17,14 +20,19 @@ public class Importacao {
 	@Column(unique = true)
 	private LocalDate dataTransacao;
 	private LocalDateTime dataImportacao;
+	@Column(name = "usuario_id")
+	private Long usuarioId;
+	
+	@ManyToOne(targetEntity = Usuario.class,fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_id",insertable = false, updatable = false)
+	private Usuario usuario;
+	
 	public Importacao() {
-		super();
 	}
-	
-	
-	public Importacao(LocalDate dataTransacao, LocalDateTime dataImportacao) {
+	public Importacao(LocalDate dataTransacao, LocalDateTime dataImportacao, Long usuarioId) {
 		this.dataTransacao = dataTransacao;
 		this.dataImportacao = dataImportacao;
+		this.usuarioId = usuarioId;
 	}
 
 
@@ -45,6 +53,12 @@ public class Importacao {
 	}
 	public void setDataImportacao(LocalDateTime dataImportacao) {
 		this.dataImportacao = dataImportacao;
+	}
+	public Long getUsuarioId() {
+		return usuarioId;
+	}
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 	
 	

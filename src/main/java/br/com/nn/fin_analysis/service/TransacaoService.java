@@ -12,6 +12,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.nn.fin_analysis.config.security.authentication.DetalhesDoUsuarioImpl;
+import br.com.nn.fin_analysis.dto.ImportacaoDto;
 import br.com.nn.fin_analysis.exception.CsvValidationException;
 import br.com.nn.fin_analysis.model.Conta;
 import br.com.nn.fin_analysis.model.Importacao;
@@ -29,7 +31,7 @@ public class TransacaoService {
 	TransacaoRepository transacaoRepository;
 	
 	@Transactional
-	public void registrar(Scanner scanner) {
+	public void registrar(Scanner scanner, DetalhesDoUsuarioImpl details) {
 		List<Transacao> listaDeTransacoes = new ArrayList<>();
 		String primeiraTransacao = scanner.nextLine();
 		String[] detalhesPrimeiraTransacao = primeiraTransacao.split(",");
@@ -50,7 +52,7 @@ public class TransacaoService {
 				listaDeTransacoes.add(transacao);
 			}
 		}
-		Importacao importacao = new Importacao(diaDaTransacao, LocalDateTime.now());
+		Importacao importacao = new Importacao(diaDaTransacao, LocalDateTime.now(), details.getId());
 		transacaoRepository.saveAll(listaDeTransacoes);
 		importacoesRepository.save(importacao);
 	}
@@ -92,8 +94,9 @@ public class TransacaoService {
 		return diaTransacao;
 	}
 	
-	public List<Importacao> getImportacoes() {
-		return this.importacoesRepository.findAll();
+	public List<ImportacaoDto> getImportacoes() {
+		List<ImportacaoDto> lista = this.importacoesRepository.listarImportacoes();
+		return lista;
 	}
 
 }

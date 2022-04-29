@@ -33,12 +33,14 @@
 		<table class="table">
 			<thead>
 				<tr>
+					<th scope="col">NOME</th>
 					<th scope="col">DATA TRANSAÇÕES</th>
 					<th scope="col">DATA IMPORTAÇÃO</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="importacao:${listaImportacoes}">
+					<td th:text="${importacao.nome}"></td>
 					<td th:text="${#temporals.format(importacao.dataTransacao,'dd/MM/yyyy')}"></td>
 					<td th:text="${#temporals.format(importacao.dataImportacao,'dd/MM/yyyy-HH:mm:ss')}"></td>
 				</tr>

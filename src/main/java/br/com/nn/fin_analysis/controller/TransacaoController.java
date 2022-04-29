@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.nn.fin_analysis.config.security.authentication.DetalhesDoUsuarioImpl;
 import br.com.nn.fin_analysis.exception.CsvValidationException;
 import br.com.nn.fin_analysis.service.TransacaoService;
 
@@ -32,7 +34,8 @@ public class TransacaoController {
 	}
 	@PostMapping
 	public ModelAndView postTransacao(@RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes,
+			@AuthenticationPrincipal DetalhesDoUsuarioImpl details) {
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "O arquivo importado está vazio! Use um arquivo válido!");
 			return new ModelAndView("redirect:/transacoes");
@@ -40,7 +43,7 @@ public class TransacaoController {
 		try {
 			InputStream inputStream = file.getInputStream();
 			Scanner scanner = new Scanner(inputStream);
-			this.transacaoService.registrar(scanner);
+			this.transacaoService.registrar(scanner, details);
 			scanner.close();
 		} catch (IOException | CsvValidationException e) {
 			if(e instanceof CsvValidationException) {
