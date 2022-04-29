@@ -24,7 +24,7 @@ public class UsuarioService {
 	public void registarUsuario(UsuarioForm novoUsuario) {
 		String senha = this.gerarSenha();
 		String senhaCriptografada =this.criptografarSenha(senha);
-		Usuario usuario = new Usuario(novoUsuario.getNome(), novoUsuario.getEmail(), senhaCriptografada);
+		Usuario usuario = new Usuario(novoUsuario.getNome(), novoUsuario.getEmail(), senhaCriptografada, true);
 		usuarioRepository.save(usuario);
 		this.enviarSenhaPeloEmail(senha, novoUsuario.getEmail());
 	}

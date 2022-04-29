@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base::head(~{::title})">
+<title>Cadastrar</title>
+</head>
+<body>
+	<div class="container mt-3">
+		<h1 class="text-center">Login</h1>
+		<div th:if="${param.error}" class="alert alert-danger" role="alert">
+			Usuário e/ou senha inválidos.</div>
+		<form action="/login" method="POST">
+			<div class="form-floating mb-3">
+				<input id="floatingEmail" type="email" name="username"
+					class="form-control" placeholder="Email"> <label
+					for="floatingEmail">Email</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input id="floatingSenha" type="password" name="password"
+					class="form-control" placeholder="example@email.com"> <label
+					for="floatingSenha"> Senha</label>
+			</div>
+			<button class="btn btn-primary" type="submit">Login</button>
+		</form>
+
+	</div>
+	<div th:replace="base :: jsbootstrap"></div>
+</body>
+</html>

@@ -15,11 +15,13 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 	private String senha;
+	private Boolean ativo;
 	
-	public Usuario(String nome, String email, String senha) {
+	public Usuario(String nome, String email, String senha, Boolean ativo) {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
+		this.ativo = ativo;
 	}
 	public Usuario() {
 	}
@@ -47,7 +49,12 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+	public Boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 	
 	
 }
