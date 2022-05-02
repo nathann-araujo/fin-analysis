@@ -2,6 +2,8 @@ package br.com.nn.fin_analysis.dto;
 
 import java.util.Objects;
 
+import br.com.nn.fin_analysis.model.Usuario;
+
 public class UsuarioDto {
 	private Long id;
 	private String nome;
@@ -11,6 +13,11 @@ public class UsuarioDto {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
+	}
+	public UsuarioDto(Usuario usuario) {
+		this.id = usuario.getId();
+		this.nome = usuario.getNome();
+		this.email = usuario.getEmail();
 	}
 	public Long getId() {
 		return id;

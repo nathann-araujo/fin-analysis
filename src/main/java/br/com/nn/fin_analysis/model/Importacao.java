@@ -2,6 +2,8 @@ package br.com.nn.fin_analysis.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Importacao {
@@ -26,6 +29,10 @@ public class Importacao {
 	@ManyToOne(targetEntity = Usuario.class,fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id",insertable = false, updatable = false)
 	private Usuario usuario;
+	@OneToMany(mappedBy = "importacao")
+	private List<Transacao> transacoes;
+	
+	
 	
 	public Importacao() {
 	}
@@ -60,6 +67,14 @@ public class Importacao {
 	public void setUsuarioId(Long usuarioId) {
 		this.usuarioId = usuarioId;
 	}
-	
+	public List<Transacao> getTransacoes() {
+		return Collections.unmodifiableList(transacoes);
+	}
+	public void setTransacoes(List<Transacao> transacoes) {
+		this.transacoes = transacoes;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
 	
 }

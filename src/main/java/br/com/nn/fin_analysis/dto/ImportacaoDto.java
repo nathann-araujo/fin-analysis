@@ -1,32 +1,25 @@
 package br.com.nn.fin_analysis.dto;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
-public class ImportacaoDto{
-
-	private String nome;
-	private LocalDate dataTransacao;
-	private LocalDateTime dataImportacao;
+public class ImportacaoDto {
+	private DetalhesImportacaoDto detalhes;
+	private List<TransacaoDto> transacoes;
 	
 	
+	public ImportacaoDto(DetalhesImportacaoDto detalhes, List<TransacaoDto> transacoes) {
+		this.detalhes = detalhes;
+		this.transacoes = transacoes;
+	}
 	
-	public ImportacaoDto(String nome, LocalDate dataTransacao, LocalDateTime dataImportacao) {
-		this.nome = nome;
-		this.dataTransacao = dataTransacao;
-		this.dataImportacao = dataImportacao;
+	public DetalhesImportacaoDto getDetalhes() {
+		return detalhes;
 	}
 
-	public String getNome() {
-		return nome;
+	public List<TransacaoDto> getTransacoes() {
+		return Collections.unmodifiableList(transacoes);
 	}
-
-	public LocalDate getDataTransacao() {
-		return dataTransacao;
-	}
-
-	public LocalDateTime getDataImportacao() {
-		return dataImportacao;
-	}
+	
 	
 }

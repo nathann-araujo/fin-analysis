@@ -36,6 +36,7 @@
 					<th scope="col">NOME</th>
 					<th scope="col">DATA TRANSAÇÕES</th>
 					<th scope="col">DATA IMPORTAÇÃO</th>
+					<th scope="col">OPÇÕES</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,6 +44,7 @@
 					<td th:text="${importacao.nome}"></td>
 					<td th:text="${#temporals.format(importacao.dataTransacao,'dd/MM/yyyy')}"></td>
 					<td th:text="${#temporals.format(importacao.dataImportacao,'dd/MM/yyyy-HH:mm:ss')}"></td>
+					<td><a class="btn btn-primary" th:href="@{/transacoes/detalhar/{id}(id=${importacao.id})}">Detalhar</a></td>
 				</tr>
 			</tbody>
 		</table>

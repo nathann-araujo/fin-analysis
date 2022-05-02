@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="base::head(~{::title})">
+<title>Detalhes</title>
+</head>
+<body>
+	<main class="container">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title text-center">Detalhes</h5>
+				<div class="row mb-3">
+					<label for="inputEmail3" class="col-sm-2 col-form-label">Data
+						Transacões</label>
+					<div class="col-sm-3">
+						<span
+							th:text="${#temporals.format(importacao.detalhes.dataTransacao,'dd/MM/yyyy')}"
+							class="input-group-text">01/01/2022</span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="inputEmail3" class="col-sm-2 col-form-label">Data
+						Importação</label>
+					<div class="col-sm-3">
+						<span
+							th:text="${#temporals.format(importacao.detalhes.dataImportacao,'dd/MM/yyyy-HH:mm:ss')}"
+							class="input-group-text">01/01/2022 - 14:30</span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="inputEmail3" class="col-sm-2 col-form-label">Importado
+						por</label>
+					<div class="col-sm-3">
+						<span th:text="${importacao.detalhes.nome}" class="input-group-text">João
+							das Neves</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="text-center" colspan="3">ORIGEM</th>
+					<th class="text-center" colspan="3">DESTINO</th>
+					<th class="text-center align-middle" rowspan="2">VALOR</th>
+				</tr>
+				<tr>
+					<th class="text-center">BANCO</th>
+					<th class="text-center">AGÊNCIA</th>
+					<th class="text-center">CONTA</th>
+					<th class="text-center">BANCO</th>
+					<th class="text-center">AGÊNCIA</th>
+					<th class="text-center">CONTA</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="transacao:${importacao.transacoes}">
+					<td th:text="${transacao.contaOrigem.banco}"></td>
+					<td th:text="${transacao.contaOrigem.agencia}"></td>
+					<td th:text="${transacao.contaOrigem.conta}"></td>
+					<td th:text="${transacao.contaDestino.banco}"></td>
+					<td th:text="${transacao.contaDestino.agencia}"></td>
+					<td th:text="${transacao.contaOrigem.conta}"></td>
+					<td th:text="${transacao.valor}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+
+	</main>
+
+
+	<div th:replace="base :: jsbootstrap"></div>
+</body>
+</html>
