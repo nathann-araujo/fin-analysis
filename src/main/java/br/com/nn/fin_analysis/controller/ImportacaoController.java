@@ -22,8 +22,8 @@ import br.com.nn.fin_analysis.exception.CsvValidationException;
 import br.com.nn.fin_analysis.service.TransacaoService;
 
 @Controller
-@RequestMapping("/transacoes")
-public class TransacaoController {
+@RequestMapping("/importacoes")
+public class ImportacaoController {
 	
 	@Autowired
 	TransacaoService transacaoService;
@@ -40,7 +40,7 @@ public class TransacaoController {
 			@AuthenticationPrincipal DetalhesDoUsuarioImpl details) {
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "O arquivo importado está vazio! Use um arquivo válido!");
-			return new ModelAndView("redirect:/transacoes");
+			return new ModelAndView("redirect:/importacoes");
 		}
 		try {
 			InputStream inputStream = file.getInputStream();
@@ -50,17 +50,17 @@ public class TransacaoController {
 		} catch (IOException | CsvValidationException e) {
 			if(e instanceof CsvValidationException) {
 				redirectAttributes.addFlashAttribute("message",e.getMessage());
-				return new ModelAndView("redirect:/transacoes");
+				return new ModelAndView("redirect:/importacoes");
 			}
 		}
 		
 		redirectAttributes.addFlashAttribute("message", "Arquivo adicionado com sucesso!");
-		return new ModelAndView("redirect:/transacoes");
+		return new ModelAndView("redirect:/importacoes");
 	}
 	@GetMapping("/detalhar/{id}")
 	public ModelAndView getDetalhes(@PathVariable Long id) {
 		ImportacaoDto importacao = transacaoService.getImportacao(id);
-		ModelAndView mv = new ModelAndView("transacao-detalhes");
+		ModelAndView mv = new ModelAndView("importacao-detalhes");
 		mv.addObject("importacao", importacao);
 		return mv;
 	}

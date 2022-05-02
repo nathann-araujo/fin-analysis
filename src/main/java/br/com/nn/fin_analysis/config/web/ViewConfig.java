@@ -10,7 +10,7 @@ public class ViewConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("forward:/transacoes");
+		registry.addViewController("/").setViewName("forward:/importacoes");
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
 }

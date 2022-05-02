@@ -4,6 +4,7 @@
 <title>Cadastrar</title>
 </head>
 <body>
+<header th:replace="base::navbar('')"></header>
 	<div class="container mt-3">
 		<h1 class="text-center">IMPORTAR TRANSAÇÕES</h1>
 		<form action="/signup" method="POST" th:object="${usuarioForm}">

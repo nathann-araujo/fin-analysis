@@ -4,9 +4,15 @@
 <title>Usuarios</title>
 </head>
 <body>
-<div class="container mt-5">
-	<h2 class="text-center">USUÁRIOS CADASTRADOS</h2>
-		<table class="table">
+	<header th:replace="base::navbar('')"></header>
+	<div class="container mt-5">
+		<div class="d-flex align-items-center justify-content-between">
+			<h2 class="d-inline-flex">USUÁRIOS CADASTRADOS</h2>
+			<a class="align-center btn btn-primary" th:href="@{/signup}">
+			 Adicionar Usuário</a>
+		</div>
+
+		<table class="table align-middle text-center">
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
@@ -21,11 +27,12 @@
 					<td th:text="${usuario.nome}"></td>
 					<td th:text="${usuario.email}"></td>
 					<td>
-					<button class="btn btn-primary">Editar</button>
-					<form class="d-inline" th:if="${usuario.email != username}" th:action="@{/usuarios/deletar}" method="POST">
-						<input name="id" type="hidden" th:value="${usuario.id}">
-						<button class="btn btn-danger" type="submit">Remover</button>
-					</form>
+						<button class="btn btn-primary">Editar</button>
+						<form class="d-inline" th:if="${usuario.email != username}"
+							th:action="@{/usuarios/deletar}" method="POST">
+							<input name="id" type="hidden" th:value="${usuario.id}">
+							<button class="btn btn-danger" type="submit">Remover</button>
+						</form>
 					</td>
 				</tr>
 			</tbody>

@@ -4,7 +4,7 @@
 <title>Importar</title>
 </head>
 <body>
-
+<header th:replace="base::navbar('')"></header>
 	<div th:if="${message}"
 		th:class="${message!='Arquivo adicionado com sucesso!' ? 
 	'alert alert-danger alert-dismissible fade show' 
@@ -17,7 +17,7 @@
 
 	<div class="container mt-3">
 		<h1 class="text-center">IMPORTAR TRANSAÇÕES</h1>
-		<form action="/transacoes" method="POST" enctype="multipart/form-data">
+		<form action="/importacoes" method="POST" enctype="multipart/form-data">
 			<div class="input-group">
 				<input type="file" name="file" accept=".csv" class="form-control">
 				<button class="btn btn-outline-secondary" type="submit">Importar</button>
@@ -44,7 +44,7 @@
 					<td th:text="${importacao.nome}"></td>
 					<td th:text="${#temporals.format(importacao.dataTransacao,'dd/MM/yyyy')}"></td>
 					<td th:text="${#temporals.format(importacao.dataImportacao,'dd/MM/yyyy-HH:mm:ss')}"></td>
-					<td><a class="btn btn-primary" th:href="@{/transacoes/detalhar/{id}(id=${importacao.id})}">Detalhar</a></td>
+					<td><a class="btn btn-primary" th:href="@{/importacoes/detalhar/{id}(id=${importacao.id})}">Detalhar</a></td>
 				</tr>
 			</tbody>
 		</table>

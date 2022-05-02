@@ -4,6 +4,7 @@
 <title>Login</title>
 </head>
 <body>
+	<header th:replace="base::navbar('login')"></header>
 	<div class="container mt-3">
 		<h1 class="text-center">Login</h1>
 		<div th:if="${param.error}" class="alert alert-danger" role="alert">
