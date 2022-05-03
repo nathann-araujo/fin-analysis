@@ -27,7 +27,7 @@
 					<td th:text="${usuario.nome}"></td>
 					<td th:text="${usuario.email}"></td>
 					<td>
-						<button class="btn btn-primary">Editar</button>
+						<a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-primary">Editar</a>
 						<form class="d-inline" th:if="${usuario.email != username}"
 							th:action="@{/usuarios/deletar}" method="POST">
 							<input name="id" type="hidden" th:value="${usuario.id}">

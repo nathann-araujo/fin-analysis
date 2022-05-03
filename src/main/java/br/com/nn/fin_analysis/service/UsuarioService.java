@@ -60,4 +60,24 @@ public class UsuarioService {
 		System.out.println("NÃO DEVE DELETAR A SI PRÓPRIO");
 		
 	}
+	public void editarUsuario(DetalhesDoUsuarioImpl details, UsuarioDto usuarioForm) {
+		Long id = usuarioForm.getId();
+		if (id.equals(1L)) {
+			System.out.println("NÃO DEVE EDITAR ADMIN");
+			return;
+		}
+		Usuario usuario = usuarioRepository.getById(id);
+		if (!usuarioForm.getNome().equals(usuario.getNome())) {
+			usuario.setNome(usuarioForm.getNome());
+		}
+		if (!usuarioForm.getEmail().equals(usuario.getEmail())) {
+			usuario.setEmail(usuarioForm.getEmail());
+		}
+		usuarioRepository.save(usuario);
+	}
+	public UsuarioDto getUsuario(Long id) {
+		Usuario usuario = usuarioRepository.getById(id);
+		return new UsuarioDto(usuario);
+		
+	}
 }
