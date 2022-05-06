@@ -6,8 +6,8 @@
 <body>
 <header th:replace="base::navbar('')"></header>
 	<div class="container mt-3">
-		<h1 class="text-center">IMPORTAR TRANSAÇÕES</h1>
-		<form action="/signup" method="POST" th:object="${usuarioForm}">
+		<h1 class="text-center">Editar Usuario</h1>
+		<form th:object="${usuarioDto}" th:action="@{/usuarios/editar/{id}(id=*{id})}" method="POST" >
 			<div class="form-floating mb-3">
 				<input th:field="*{nome}" th:errorclass="is-invalid"
 					id="floatingNome" type="text" name="nome" class="form-control"
@@ -23,9 +23,8 @@
 				<p class="alert alert-danger" th:if="${#fields.hasErrors('email')}"
 					th:errors="*{email}">
 					
-			</div>
-
-			<button class="btn btn-primary" type="submit">cadastrar</button>
+			</div>	
+			<button class="btn btn-primary" type="submit">editar</button>
 		</form>
 
 	</div>
